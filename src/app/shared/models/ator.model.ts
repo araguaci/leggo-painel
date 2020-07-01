@@ -14,4 +14,6 @@ export interface Ator {
   nome_partido_uf: string;
   quantidade_relatorias: number;
   ids_relatorias: number[];
+  quantidade_comissao_presidente: number;
+  id_comissao: number[];
 }

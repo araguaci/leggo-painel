@@ -31,10 +31,12 @@ export class DetalhesParlamentarComponent implements OnInit {
 
   public parlamentar: Ator;
   public nomesRelatorias: string[];
+  public nomesComissoes: string[];
   public idAtor: string;
   public interesse: string;
   public urlFoto: string;
   public autorias: Map<number, Autoria[]>;
+  info: any;
 
   constructor(
     private atorService: AtorService,
@@ -56,35 +58,31 @@ export class DetalhesParlamentarComponent implements OnInit {
     forkJoin(
       [
         this.atorService.getAtor(this.idAtor),
+        this.atorService.getComissaoDetalhadaById(this.idAtor),
         this.atorService.getRelatoriasDetalhadaById(this.interesse, this.idAtor)
       ]
     )
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(parlamentar => {
         const ator: any = parlamentar[0];
-        const ids: any = parlamentar[1][0].ids_relatorias;
-        const quant: any = parlamentar[1][0].quantidade_relatorias;
-        this.nomesRelatorias = [];
+        const ids: any = parlamentar[1][0].id_comissao;
+        const info: any = parlamentar[1][0].info_comissao;
+        const quantComissoes: any = parlamentar[1][0].quantidade_comissao_presidente;
+        this.nomesComissoes = [];
         this.parlamentar = ator.map(a => ({
           ...a,
-          ids_relatorias: ids,
-          quantidade_relatorias: quant
+          id_comissao: ids,
+          quantidade_comissao_presidente: quantComissoes
         }));
-        ids.forEach(id => {
-          this.atorService.getProposicoesById(this.interesse, id.id_leggo)
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(idProp => {
-              this.nomesRelatorias.push(idProp[0].etapas[0].sigla);
-            });
-        });
+        this.nomesComissoes.push('Comissão: ' + info);
         this.getUrlFoto();
     });
   }
 
   getUrlFoto(): void {
-    const urlSenado = `https://www.senado.leg.br/senadores/img/fotos-oficiais/senador${this.parlamentar[0].id_ext}.jpg`;
-    const urlCamara = `https://www.camara.leg.br/internet/deputado/bandep/${this.parlamentar[0].id_autor}.jpg`;
-    this.urlFoto = this.parlamentar[0].casa === 'camara' ? urlCamara : urlSenado;
+    const urlSenado = `https://www.senado.leg.br/senadores/img/fotos-oficiais/senador${this.parlamentar.id_ext}.jpg`;
+    const urlCamara = `https://www.camara.leg.br/internet/deputado/bandep/${this.parlamentar.id_autor}.jpg`;
+    this.urlFoto = this.parlamentar.casa === 'camara' ? urlCamara : urlSenado;
   }
 
   renderVisAtividade(): void {
