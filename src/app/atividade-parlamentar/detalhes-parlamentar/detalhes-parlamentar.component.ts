@@ -59,19 +59,18 @@ export class DetalhesParlamentarComponent implements OnInit {
       [
         this.atorService.getAtor(this.idAtor),
         this.atorService.getComissaoDetalhadaById(this.idAtor),
-        this.atorService.getRelatoriasDetalhadaById(this.interesse, this.idAtor)
       ]
     )
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(parlamentar => {
         const ator: any = parlamentar[0];
-        const ids: any = parlamentar[1][0].id_comissao;
+        const idsComissoes: any = parlamentar[1][0].id_comissao;
         const info: any = parlamentar[1][0].info_comissao;
         const quantComissoes: any = parlamentar[1][0].quantidade_comissao_presidente;
         this.nomesComissoes = [];
         this.parlamentar = ator.map(a => ({
           ...a,
-          id_comissao: ids,
+          id_comissao: idsComissoes,
           quantidade_comissao_presidente: quantComissoes
         }));
         this.nomesComissoes.push('Comissão: ' + info);
