@@ -58,21 +58,22 @@ export class DetalhesParlamentarComponent implements OnInit {
     forkJoin(
       [
         this.atorService.getAtor(this.idAtor),
-        this.atorService.getComissaoDetalhadaById(this.idAtor),
+        this.atorService.getComissaoDetalhadaById(this.idAtor)
       ]
     )
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(parlamentar => {
         const ator: any = parlamentar[0];
-        const idsComissoes: any = parlamentar[1][0].id_comissao;
+        const ids: any = parlamentar[1][0].id_comissao;
         const info: any = parlamentar[1][0].info_comissao;
-        const quantComissoes: any = parlamentar[1][0].quantidade_comissao_presidente;
+        const quant: any = parlamentar[1][0].quantidade_comissao_presidente;
         this.nomesComissoes = [];
         this.parlamentar = ator.map(a => ({
           ...a,
-          id_comissao: idsComissoes,
-          quantidade_comissao_presidente: quantComissoes
+          id_comissao: ids,
+          quantidade_comissao_presidente: quant
         }));
+        this.parlamentar = this.parlamentar[0];
         this.nomesComissoes.push('Comissão: ' + info);
         this.getUrlFoto();
     });
