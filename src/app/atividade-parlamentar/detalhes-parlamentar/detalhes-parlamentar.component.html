@@ -16,6 +16,40 @@
     </div>
   </div>
 
+<div class="parlementar-subnav">
+  <ul class="nav nav-tabs justify-content-center">
+    <li class="nav-item">
+      <a
+        class="nav-link nav-link-parlamentar"
+        [routerLink]="['./peso']"
+        [routerLinkActive]="'active'"
+      >
+        Peso político
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link nav-link-parlamentar"
+        [routerLink]="['./papeisImportantes']"
+        [routerLinkActive]="'active'"
+      >
+      Papéis Importantes
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link nav-link-parlamentar"
+        [routerLink]="['./atividades']"
+        [routerLinkActive]="'active'"
+      >
+      Atividade No Congresso
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="parlamentar-pages container">
+  <router-outlet></router-outlet>
+</div>
   <div class="card-detalhes card-peso-politico">
     <h5 class="card-titulo">Peso Político</h5>
     <div class="card-corpo">
