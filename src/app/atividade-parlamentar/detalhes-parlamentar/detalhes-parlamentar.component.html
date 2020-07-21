@@ -26,26 +26,26 @@
         </p>
     
 
-      <app-progress class="pogresso"
+      <app-progress class="progresso"
         [label]="'Congresso'"
         [valor]="parlamentar.atividade_parlamentar"
         [exibirLabel]="false"></app-progress>
       <div class="insignias">
       <div>
-        <span *ngIf="parlamentar.quantidade_autorias">
+        <span *ngIf="parlamentar?.quantidade_autorias">
           <span class="icon-autor app-icon text-danger"></span>
-          <span class="badge badge-danger app-badge badge-color-white">{{ parlamentar.quantidade_autorias }}</span>
+          <span class="badge badge-danger app-badge badge-color-white">{{ parlamentar?.quantidade_autorias }}</span>
         </span>
 
-        <span *ngIf="parlamentar.quantidade_relatorias">
+        <!-- <span *ngIf="parlamentar.quantidade_relatorias">
           <span class="icon-relator app-icon text-success"></span>
           <span class="badge badge-success app-badge badge-color-white">{{ parlamentar.quantidade_relatorias }}</span>
-        </span>
+        </span> -->
 
-        <span *ngIf="parlamentar.quantidade_comissao_presidente">
+        <span *ngIf="parlamentar?.quantidade_comissao_presidente">
           <span class="icon-presidente app-icon text-warning"></span>
           <span class="badge badge-warning app-badge badge-color-white">
-            {{ parlamentar.quantidade_comissao_presidente }}
+            {{ parlamentar?.quantidade_comissao_presidente }}
           </span>
         </span>
       </div>
@@ -81,7 +81,7 @@
           Papéis
         </a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a
           class="nav-link nav-link-parlamentar"
           [routerLink]="['./peso']"
@@ -89,7 +89,7 @@
         >
           Peso político
         </a>
-      </li>
+      </li> -->
     </ul>
   </div>
   <div class="conteudo-abas container-fluid">
